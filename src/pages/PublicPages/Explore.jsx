@@ -22,7 +22,7 @@ export default function ExplorePage() {
           variant="h3" 
           sx={{ 
             color: '#f8fafc',
-            fontWeight: 700,
+            fontWeight: 700, 
             mb: 4,
             textAlign: 'center'
           }}

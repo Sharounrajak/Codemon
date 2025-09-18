@@ -5,6 +5,17 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 export default function Hero() {
+
+  // In any component, add this button temporarily
+const testAPI = async () => {
+  try {
+    const response = await fetch('http://localhost:5000/api/snippets');
+    const data = await response.json();
+    console.log('API Response:', data);
+  } catch (error) {
+    console.log('Error:', error);
+  }
+};
   return (
       <motion.div
             initial={{ opacity: 0, y: 100 }}
@@ -131,7 +142,7 @@ export default function Hero() {
       </Box>
       
 
-     
+     <Button onClick={testAPI}>Test API</Button>
     </Box>
     </motion.div>
   );
