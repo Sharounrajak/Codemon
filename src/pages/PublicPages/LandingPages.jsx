@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function LandingPages() {
+
   const navigate = useNavigate();
   const [loadingState, setLoadingState] = useState(null);
   const [loadingText, setLoadingText] = useState("");
@@ -86,6 +87,9 @@ export default function LandingPages() {
         className="testimonial"
       >
         <Box sx={{ width: "100%" }}>
+         
+        
+    
           {/* Hero Section */}
           <Box
             sx={{

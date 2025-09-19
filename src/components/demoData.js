@@ -1,5 +1,6 @@
+import { useState, useEffect } from 'react';
 // constants/demoData.js (or at the top of your Explore component)
-export const DEMO_SNIPPETS = [
+export const FALLBACK_SNIPPETS = [
   {
     id: 1,
     title: "React useState Hook",
@@ -123,3 +124,41 @@ export const DEMO_CATEGORIES = [
   "Node.js",
   "SQL"
 ];
+export const useDemoData = () => {
+  const [snippets, setSnippets] = useState(FALLBACK_SNIPPETS); // Start with fallback
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchFromAPI = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('http://localhost:5000/api/snippets');
+        
+        if (response.ok) {
+          const data = await response.json();
+          // Transform MongoDB data to match your existing format
+          const transformedData = data.map(item => ({
+            ...item,
+            id: item._id, // Convert MongoDB _id to id
+          }));
+          setSnippets(transformedData);
+        } else {
+          console.log('API failed, using fallback data');
+          // Keep using FALLBACK_SNIPPETS
+        }
+      } catch (error) {
+        console.log('API error, using fallback data:', error);
+        // Keep using FALLBACK_SNIPPETS
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFromAPI();
+  }, []);
+
+  return { snippets, loading };
+};
+
+// Export the constant too if other components need it
+export const DEMO_SNIPPETS = FALLBACK_SNIPPETS;

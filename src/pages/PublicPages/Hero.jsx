@@ -17,12 +17,13 @@ const testAPI = async () => {
   }
 };
   return (
-      <motion.div
-            initial={{ opacity: 0, y: 100 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="testimonial"
-        >  
+    <motion.div
+    initial={{ opacity: 0, y: 100 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
+    className="testimonial"
+    >  
+    <Button onClick={testAPI}>Test API</Button>
     <Box sx={{ width: '100%' }}>
       {/* Hero Section */}
       <Box
@@ -142,7 +143,6 @@ const testAPI = async () => {
       </Box>
       
 
-     <Button onClick={testAPI}>Test API</Button>
     </Box>
     </motion.div>
   );
