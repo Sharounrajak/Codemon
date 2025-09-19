@@ -20,6 +20,60 @@ app.get('/', (req, res) => {
   res.json({ message: 'CodeMon API is working!' });
 });
 
+const router = express.Router();
+// Create new snippet
+router.post("/snippets", async (req, res) => {
+  try {
+    const { title, description, language, tag, code } = req.body;
+
+    // Validate required fields
+    if (!title || !language || !code) {
+      return res.status(400).json({ error: "Title, language, and code are required" });
+    }
+
+    // Create new snippet
+    const newSnippet = new Snippet({
+      title,
+      description,
+      language,
+      tag,
+      code,
+    });
+
+    await newSnippet.save();
+
+    res.status(201).json(newSnippet);
+  } catch (error) {
+    console.error("Error creating snippet:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+export default router;
+
+app.put('/api/snippets/:id', async (req, res) => {
+  try {
+    const snippet = await Snippet.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!snippet) {
+      return res.status(404).json({ message: 'Snippet not found' });
+    }
+    res.json(snippet);
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating snippet', error: error.message });
+  }
+})
+
+app.delete('/api/snippets/:id', async (req, res) => {
+  try {
+    const snippet = await Snippet.findByIdAndDelete(req.params.id);
+    if (!snippet) {
+      return res.status(404).json({ message: 'Snippet not found' });
+    }
+    res.json(snippet);
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting snippet', error: error.message });
+  }
+})
 // Get all snippets FROM DATABASE (not hardcoded anymore)
 app.get('/api/snippets', async (req, res) => {
   try {
