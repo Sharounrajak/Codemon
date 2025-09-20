@@ -64,4 +64,3 @@ router.delete("/snippets/:id", async (req, res) => {
   }
 });
 
-export default router;

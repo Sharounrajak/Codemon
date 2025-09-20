@@ -3,7 +3,8 @@ import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import LandingPages from "./pages/PublicPages/LandingPages";
 import Explore from "./pages/PublicPages/Explore";
-import CreateSnippet from "./pages/PublicPages/CreateSnippet";
+import CreateSnippet from "./pages/PrivatePages/CreateSnippet";
+import MySnippet from "./pages/PrivatePages/Mysnippet";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<LandingPages />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/create" element={<CreateSnippet />} />
+        <Route path="/mysnippet" element={<MySnippet />} />
       </Routes>
     </>
   );

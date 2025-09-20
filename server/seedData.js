@@ -6,6 +6,8 @@ const DEMO_SNIPPETS = [
   {
     title: "React useState Hook",
     description: "Basic state management in React functional components",
+    userId: "demo-user",
+    isDemo: true,
     code: `const [count, setCount] = useState(0);
 
 const increment = () => {
@@ -34,7 +36,9 @@ const increment = () => {
     avatar: "AR",
     tags: ["python", "algorithms", "sorting"],
     likes: 156,
-    views: 890
+    views: 890,
+    userId: "demo-user",
+    isDemo: true
   },
   {
     title: "CSS Flexbox Center",
@@ -50,7 +54,9 @@ const increment = () => {
     avatar: "MJ",
     tags: ["css", "flexbox", "centering"],
     likes: 89,
-    views: 450
+    views: 450,
+    userId: "demo-user",
+    isDemo: true
   },
   {
     title: "Express.js Basic Server",
@@ -71,7 +77,9 @@ app.listen(PORT, () => {
     avatar: "EW",
     tags: ["nodejs", "express", "backend"],
     likes: 312,
-    views: 1500
+    views: 1500,
+    userId: "demo-user",
+    isDemo: true
   },
   {
     title: "JavaScript Array Methods",
@@ -87,7 +95,9 @@ const sum = numbers.reduce((acc, n) => acc + n, 0);`,
     avatar: "DK",
     tags: ["javascript", "arrays", "cheatsheet"],
     likes: 445,
-    views: 2100
+    views: 2100,
+    userId: "demo-user",
+    isDemo: true
   }
 ];
 

@@ -15,41 +15,43 @@ mongoose.connect('mongodb://localhost:27017/codemon')
   .then(() => console.log('✅ MongoDB connected!'))
   .catch(err => console.log('❌ MongoDB connection error:', err));
 
-// Routes
-app.get('/', (req, res) => {
-  res.json({ message: 'CodeMon API is working!' });
-});
-
-const router = express.Router();
-// Create new snippet
-router.post("/snippets", async (req, res) => {
+// GET all public snippets (for explore page - includes demo + user snippets)
+app.get('/api/snippets', async (req, res) => {
   try {
-    const { title, description, language, tag, code } = req.body;
-
-    // Validate required fields
-    if (!title || !language || !code) {
-      return res.status(400).json({ error: "Title, language, and code are required" });
-    }
-
-    // Create new snippet
-    const newSnippet = new Snippet({
-      title,
-      description,
-      language,
-      tag,
-      code,
-    });
-
-    await newSnippet.save();
-
-    res.status(201).json(newSnippet);
+    const snippets = await Snippet.find().sort({ createdAt: -1 });
+    res.json(snippets);
   } catch (error) {
-    console.error("Error creating snippet:", error);
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ error: error.message });
   }
 });
 
-export default router;
+// GET user's own snippets (for "My Snippets" page)
+app.get('/api/snippets/user/:userId', async (req, res) => {
+  try {
+    const userSnippets = await Snippet.find({ 
+      userId: req.params.userId,
+      isDemo: false // Exclude demo data
+    }).sort({ createdAt: -1 });
+    res.json(userSnippets);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.post('/api/snippets', async (req, res) => {
+  try {
+    console.log('Received data:', req.body); // Debug log
+    
+    const snippet = new Snippet(req.body);
+    const saved = await snippet.save();
+    
+    console.log('Saved successfully:', saved); // Debug log
+    res.json(saved);
+  } catch (error) {
+    console.log('Error details:', error); // This will show the real problem
+    res.status(500).json({ message: error.message });
+  }
+});
 
 app.put('/api/snippets/:id', async (req, res) => {
   try {

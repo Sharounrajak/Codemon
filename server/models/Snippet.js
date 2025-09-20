@@ -35,7 +35,9 @@ const snippetSchema = new mongoose.Schema({
   },
   tags: [{
     type: String
-  }]
+  }],
+   userId: { type: String, required: true }, // ADD THIS - identifies who created it
+  isDemo: { type: Boolean, default: false }, // ADD THIS - marks demo data
 }, {
   timestamps: true // Automatically adds createdAt and updatedAt
 });
