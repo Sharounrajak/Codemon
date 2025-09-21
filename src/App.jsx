@@ -4,19 +4,18 @@ import Navbar from "./components/Navbar";
 import LandingPages from "./pages/PublicPages/LandingPages";
 import Explore from "./pages/PublicPages/Explore";
 import CreateSnippet from "./pages/PrivatePages/CreateSnippet";
-import MySnippet from "./pages/PrivatePages/Mysnippet";
+import UserProfile from "./pages/PrivatePages/UserProfile";
 
 function App() {
   return (
     <>
       <Navbar />
 
-
       <Routes>
         <Route path="/" element={<LandingPages />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/create" element={<CreateSnippet />} />
-        <Route path="/mysnippet" element={<MySnippet />} />
+        <Route path="/UserProfile" element={<UserProfile />} />
       </Routes>
     </>
   );

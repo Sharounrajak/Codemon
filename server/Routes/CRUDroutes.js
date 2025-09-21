@@ -22,7 +22,7 @@ router.post("/snippets", async (req, res) => {
 });
 
 // READ ALL
-router.get("/snippets", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const snippets = await Snippet.find();
     res.json(snippets);

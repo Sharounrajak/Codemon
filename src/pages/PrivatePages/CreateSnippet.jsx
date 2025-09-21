@@ -59,22 +59,37 @@ const CreateSnippet = () => {
     console.log("Sending to backend:", dataToSend);
 
     // Send the snippet data to the backend
-    fetch("http://localhost:5000/api/snippets", {
+  try {
+    const res = await fetch("http://localhost:5000/api/snippets", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(snippetData),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("Created:", data);
-        console.log("Snippet created successfully!");
-      })
-      .catch((err) => {
-        console.error("Error:", err);
-        console.log("Something went wrong");
-      });
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(dataToSend),
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(`Failed to create snippet: ${errorData.message}`);
+    }
+
+    const data = await res.json();
+    console.log("Created:", data);
+    alert("Snippet created successfully!");
+    
+    // Reset form
+    setSnippetData({
+      title: "",
+      language: "",
+      code: "",
+      description: "",
+      tags: [],
+    });
+    
+  } catch (err) {
+    console.error("Error:", err);
+    alert(`Something went wrong: ${err.message}`);
+  }
+};
+
 
     /* try {
       const res = await fetch("http://localhost:5000/api/snippets", {
@@ -98,7 +113,7 @@ const CreateSnippet = () => {
     /* const handleEditorChange = (value) => {
     setSnippetData({ ...snippetData, code: value });
   }; */
-  };
+  
 
   return (
     <Box

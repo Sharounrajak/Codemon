@@ -128,37 +128,41 @@ export const useDemoData = () => {
   const [snippets, setSnippets] = useState(FALLBACK_SNIPPETS); // Start with fallback
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchFromAPI = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch('http://localhost:5000/api/snippets');
+      
+  const fetchSnippets = async () => {
+    try {
+      setLoading(true);
+      console.log('Fetching fresh data...'); // Debug log
+      
+      const response = await fetch('http://localhost:5000/api/snippets?_t=' + Date.now());
+      
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Fresh API data:', data); // Debug log
         
-        if (response.ok) {
-          const data = await response.json();
-          // Transform MongoDB data to match your existing format
-          const transformedData = data.map(item => ({
-            ...item,
-            id: item._id, // Convert MongoDB _id to id
-          }));
-          setSnippets(transformedData);
-        } else {
-          console.log('API failed, using fallback data');
-          // Keep using FALLBACK_SNIPPETS
-        }
-      } catch (error) {
-        console.log('API error, using fallback data:', error);
-        // Keep using FALLBACK_SNIPPETS
-      } finally {
-        setLoading(false);
+        const transformedData = data.map(item => ({
+          ...item,
+          id: item._id,
+        }));
+        
+        setSnippets(transformedData);
       }
-    };
+    } catch (error) {
+      console.log('API error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchFromAPI();
+  useEffect(() => {
+    fetchSnippets();
   }, []);
 
-  return { snippets, loading };
+  // Return refetch function so components can manually refresh
+  return { snippets, loading, refetch: fetchSnippets };
 };
+
+
 
 // Export the constant too if other components need it
 export const DEMO_SNIPPETS = FALLBACK_SNIPPETS;

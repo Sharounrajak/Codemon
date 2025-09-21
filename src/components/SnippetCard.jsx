@@ -239,7 +239,7 @@ export default function SnippetCard({ snippet }) {
 
         <Button
           size="small"
-          startIcon={<CodeIcon />}
+          startIcon={<ContentCopyIcon />}
           sx={{
             color: "#8978b1ff",
             "&:hover": {
@@ -247,7 +247,18 @@ export default function SnippetCard({ snippet }) {
             },
           }}
         >
-          View
+          Copy
+        </Button>
+          <Button
+          size="small"
+          sx={{
+            color: "#8978b1ff",
+            "&:hover": {
+              backgroundColor: "rgba(137, 120, 177, 0.1)",
+            },
+          }}
+        >
+          Edit
         </Button>
       </CardActions>
     </Card>

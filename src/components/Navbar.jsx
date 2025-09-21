@@ -77,10 +77,10 @@ export default function Navbar() {
                   bgcolor: "#8978b1ff",
                   "&:hover": { bgcolor: "#7c6ba5" },
                 }}
-                onClick={() => navigate("/mysnippet")} // Future create page
+                onClick={() => navigate("/UserProfile")} // Future create page
               >
-                My Snippets
-              </Button>
+Profile 
+             </Button>
             </>
           )}
         </Box>

@@ -1,8 +1,8 @@
 // pages/public/ExplorePage.jsx
-import React from "react";
-import { Container, Grid, Typography, Box } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Container, Grid, Typography, Box, Button } from "@mui/material";
 import SnippetCard from "../../components/SnippetCard";
-import { FALLBACK_SNIPPETS, useDemoData } from "../../components/demoData";
+import {DEMO_SNIPPETS, FALLBACK_SNIPPETS, useDemoData } from "../../components/demoData";
 import { Link } from "react-router-dom";
 import InboxIcon from "@mui/icons-material/Inbox";
 import MailIcon from "@mui/icons-material/Mail";
@@ -18,6 +18,16 @@ import {
 export default function ExplorePage() {
   const { snippets } = useDemoData();
   const drawerWidth = 200;
+
+  const [snippet, setSnippet] = useState();
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/snippets")
+      .then((response) => response.json())
+      .then((data) => {
+        setSnippet(data);
+      });
+  }, []);
 
   function ResponsiveDrawer(props) {
     const { window } = props;
@@ -53,9 +63,10 @@ export default function ExplorePage() {
     >
       <Container maxWidth="lg">
         
+        
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+          {["My Snippets", "Create Snippet"].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
@@ -86,8 +97,8 @@ export default function ExplorePage() {
           spacing={3}
           sx={{ display: "flex", justifyContent: "center" }}
         >
-          {FALLBACK_SNIPPETS.map((snippet) => (
-            <Grid item xs={12} sm={6} lg={4} key={snippet.id}>
+          {snippets.map((snippet) => (
+            <Grid item key={snippet.id} xs={12} sm={6} md={4}>
               <SnippetCard snippet={snippet} />
             </Grid>
           ))}
