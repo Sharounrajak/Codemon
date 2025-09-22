@@ -81,7 +81,7 @@ app.post('/api/snippets', async (req, res) => {
 // UPDATE snippet
 app.put('/api/snippets/:id', async (req, res) => {
   try {
-    const snippet = await Snippet.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const snippet = await Snippet.findByIdAndUpdate(snippetId, updateSnippet, { new: true });
     if (!snippet) {
       return res.status(404).json({ message: 'Snippet not found' });
     }

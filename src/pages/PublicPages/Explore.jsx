@@ -4,8 +4,9 @@ import { Container, Grid, Typography, Box, Button } from "@mui/material";
 import SnippetCard from "../../components/SnippetCard";
 import {DEMO_SNIPPETS, FALLBACK_SNIPPETS, useDemoData } from "../../components/demoData";
 import { Link } from "react-router-dom";
-import InboxIcon from "@mui/icons-material/Inbox";
+import CodeIcon from '@mui/icons-material/Code';
 import MailIcon from "@mui/icons-material/Mail";
+import { AppBar, CssBaseline, Drawer } from "@mui/material";
 import {
   Divider,
   List,
@@ -17,18 +18,18 @@ import {
 } from "@mui/material";
 export default function ExplorePage() {
   const { snippets } = useDemoData();
-  const drawerWidth = 200;
-
+  
   const [snippet, setSnippet] = useState();
-
+  
   useEffect(() => {
     fetch("http://localhost:5000/api/snippets")
-      .then((response) => response.json())
-      .then((data) => {
-        setSnippet(data);
-      });
+    .then((response) => response.json())
+    .then((data) => {
+      setSnippet(data);
+    });
   }, []);
-
+  
+  const drawerWidth = 200;
   function ResponsiveDrawer(props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -61,24 +62,65 @@ export default function ExplorePage() {
         py: 4,
       }}
     >
-      <Container maxWidth="lg">
-        
-        
-        <Divider />
+
+      <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px`,  backgroundColor: "#0f172a",
+        color: "#8978b1ff",}}
+      >
+      </AppBar>
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+             backgroundColor: "#0f172a",
+             color: "#8978b1ff",
+          },
+        }}
+        variant="permanent"
+        anchor="left"
+      >
+        <Toolbar />
+       
         <List>
-          {["My Snippets", "Create Snippet"].map((text, index) => (
+          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {index % 2 === 0 ? <CodeIcon /> : <MailIcon />}
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
-
-        <Divider />
+   
+        <List>
+          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <CodeIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+      <Box  
+        component="main"
+        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
+      >
+        <Toolbar />
+      </Box>
+    </Box>
+      <Container maxWidth="lg">
 
         <Typography
           variant="h3"
