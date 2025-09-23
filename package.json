@@ -18,6 +18,7 @@
     "@reduxjs/toolkit": "^2.9.0",
     "express": "^5.1.0",
     "firebase": "^12.2.1",
+    "framer-motion": "^12.23.18",
     "mongoose": "^8.18.1",
     "motion": "^12.23.13",
     "react": "^19.1.1",

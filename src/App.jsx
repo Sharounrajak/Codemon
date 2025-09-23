@@ -5,6 +5,8 @@ import LandingPages from "./pages/PublicPages/LandingPages";
 import Explore from "./pages/PublicPages/Explore";
 import CreateSnippet from "./pages/PrivatePages/CreateSnippet";
 import UserProfile from "./pages/PrivatePages/UserProfile";
+import Register from "./pages/PrivatePages/Register";
+import LoginPage from "./pages/PrivatePages/LoginPage";
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
         <Route path="/explore" element={<Explore />} />
         <Route path="/create" element={<CreateSnippet />} />
         <Route path="/UserProfile" element={<UserProfile />} />
+        <Route path="/Register" element={<Register />} />
+         <Route path="/login" element={<LoginPage />} />
       </Routes>
     </>
   );

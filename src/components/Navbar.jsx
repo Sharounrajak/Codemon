@@ -79,8 +79,18 @@ export default function Navbar() {
                 }}
                 onClick={() => navigate("/UserProfile")} // Future create page
               >
-Profile 
-             </Button>
+                Profile
+              </Button>
+              <Button
+                variant="contained"
+                sx={{
+                  bgcolor: "#8978b1ff",
+                  "&:hover": { bgcolor: "#7c6ba5" },
+                }}
+                onClick={() => navigate("/Register")} // Future create page
+              >
+                Sign in
+              </Button>
             </>
           )}
         </Box>
