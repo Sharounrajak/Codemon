@@ -220,7 +220,8 @@ export default function UserProfile() {
                     {/* Monaco Editor - THE MAGIC HAPPENS HERE */}
                     <Box sx={{ height: "200px", mb: 2 }}>
                       <Editor
-                        height="100%"
+                     height="300px"
+                width="780px"
                         language={snippet.language}
                         value={snippet.code}
                         theme="vs-dark"
